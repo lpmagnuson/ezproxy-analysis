@@ -43,7 +43,7 @@ total off-campus')
         
         lines = [line.strip() for line in open(filename)] #reads file
         
-        studcount = 0 #initialize counters 
+        studcount = 0 #initialize counters
         faccount = 0
         sessions = []
         oncampus = 0
@@ -75,8 +75,8 @@ total off-campus')
                 if session not in sessions:
                     sessions.append(session)
                 
-                    stud = re.search( r'(Default\+OPAC\+Student)', line)
-                    fac = re.search(r'(Default\+OPAC\+Staff)', line)
+                    stud = re.search( r'(Default)', line)
+                    fac = re.search(r'(Default\+Faculty)', line)
                     if stud:
                         studcount = studcount + 1 #counts all off-campus student sessions
                     if fac:
@@ -96,23 +96,26 @@ total off-campus')
             studfrac = 'n/a'
             facfrac = 'n/a'
             
-        libfraccamp = (float(libraryconnections)/oncampus) * 100 # library/total oncampus connections
-        libfrac = (float(libraryconnections)/total) * 100 #library/total connections
+        #libfraccamp = (float(libraryconnections)/oncampus) * 100 # library/total oncampus connections
+	libfraccamp = 0
+	libfrac = (float(libraryconnections)/total) * 100 #library/total connections
         offcampfrac = (float(offcampus)/total) * 100 #oncampus/total connections
         oncampfrac = (float(oncampus)/total) * 100 #offcampus/total connections
 
         outfile.write('\n')
-        outfile.write(str(filename)  + ',' + str(total)  + ',' + str(oncampus) \
-                      + ',' + str(oncampfrac)  + ',' + str(offcampus)  + ',' + \
-                      str(offcampfrac)  + ',' + str(libraryconnections)  + ',' + \
-                      str(libfraccamp)  + ',' + str(libfrac)  + ',' + \
-                      str(studcount)  + ',' + str(studfrac)  + ',' + \
-                      str(faccount)  + ',' + str(facfrac))
+        outfile.write(str(filename) + ',' + str(total) + ',' + str(oncampus) \
+                      + ',' + str(oncampfrac) + ',' + str(offcampus) + ',' + \
+                      str(offcampfrac) + ',' + str(libraryconnections) + ',' + \
+                      str(libfraccamp) + ',' + str(libfrac) + ',' + \
+                      str(studcount) + ',' + str(studfrac) + ',' + \
+                      str(faccount) + ',' + str(facfrac))
 
 
     outfile.close
     print '\nOutput:', outfile
 
 main()
+
+
 
 
